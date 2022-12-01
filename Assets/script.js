@@ -9,6 +9,19 @@ function writePassword() {
   passwordText.value = password;
 }
 
+function isYNInputValid(input){
+  const uppercaseInput = input.toUpperCase();
+  if (uppercaseInput === "Y" || uppercaseInput === "N") {
+    return true
+  } else {
+    alert("Must be Y or N")
+    return false
+  }
+}
+function myPrompt(question){
+  return window.prompt(question).toUpperCase()
+}
+
 // Write password to the #password input
 function generatePassword() {
   const minPasswordLength = 8;
@@ -19,56 +32,71 @@ function generatePassword() {
   
     // Ask user for their choice
   var numChars = window.prompt("How many charaters would you like your password to contain?");
+    if (isNaN(numChars)){
+      alert("Must input numbers")
+      return null
+    }
       
-
   if(numChars < minPasswordLength){
-    console.log("min length 8 characters");
     window.alert("min length 8 characters");
     return null
   }
 
   if(numChars > maxPasswordLength){
-    console.log("max length 128 characters");
     window.alert("max length 128 characters");
     return null
   }
+  
+  var requireLowercase = myPrompt("Do you require a lowercase? (Y/N)");
+    if (!isYNInputValid(requireLowercase)) {
+      return null
+    }
 
-  var requireLowercase = window.prompt("Do you require a lowercase? (Y/N)");
-  if (requireLowercase !== "Y" || requireLowercase !== "N" ){
-    return null
-  }
-
-  var requireUppercase = window.prompt("Do you require an uppercase?");
-  if (requireUppercase !== "Y" || requireUppercase !== "N" ){
-    return null
-  }
-  var requireNumeric = window.prompt("Do you require a numbers? (Y/N)");
-  if (requireNumeric !== "Y" || requireNumeric !== "N" ){
-    return null
-  }
-  var requireSpecialChar = window.prompt("Do you require special characters?");
-  if (requireSpecialChar !== "Y" || requireSpecialChar !== "N" ){
-    return null
+  var requireUppercase = myPrompt("Do you require an uppercase?");
+    if (!isYNInputValid(requireUppercase)){
+      return null
+    } 
+  
+  var requireNumeric = myPrompt("Do you require a numbers? (Y/N)");
+    if (!isYNInputValid(requireNumeric)){
+      return null
   }
 
-  // "acceptedChars +=" acceptedChars + letters   
- var acceptedChars = ""
-  if (requireLowercase == "Y"){
+  var requireSpecialChar = myPrompt("Do you require special characters?");
+    if (!isYNInputValid(requireSpecialChar)){
+      return null
+  }
+ 
+  var acceptedChars = ""
+  if (requireLowercase === "Y"){
     acceptedChars += letters; 
   }
-  if (requireUppercase == "Y"){
+  if (requireUppercase === "Y"){
     acceptedChars += letters.toUpperCase();
   }
-  if (requireNumeric == "Y"){
+  if (requireNumeric === "Y"){
     acceptedChars += numeric
   }
-  if (requireSpecialChar == "Y"){
+  if (requireSpecialChar === "Y"){
     acceptedChars += specialChars
   }
+ 
+  var password = ""
 
+  for (var i = 0; i < parseInt(numChars); i++){
+    const randomIndex = Math.floor(Math.random() * acceptedChars.length)
+    password += acceptedChars.charAt(randomIndex);
+  
+  }
+  console.log(password)
+  return password
+    
+  
 }
+
+
+
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
 
