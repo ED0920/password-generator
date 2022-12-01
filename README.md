@@ -7,8 +7,6 @@ This challenge is to create a password generator to showcase core skills and kno
 
 For full description of the exercise, visit the challenge page:
 
-Key Topics
-
 ## User Story
 
 ```
@@ -36,5 +34,5 @@ WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 ```
 
-Deployed Application - 
+Deployed Application - https://ed0920.github.io/password-generator/
 ![final product](./Assets/Images/Deployment-pwdgen.png)
